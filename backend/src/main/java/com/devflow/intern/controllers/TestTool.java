@@ -50,7 +50,7 @@ public class TestTool {
                         );
 
                         request.setPhone(
-                                (int)(Math.random() * 1000000)
+                                "9999"+index
                         );
 
                         request.setCity("EKM");

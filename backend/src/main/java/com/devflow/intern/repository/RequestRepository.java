@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface RequestRepository extends JpaRepository<RequestModel,UUID> {
-    boolean existsByPhoneAndService(int phone,String service);
+    boolean existsByPhoneAndService(String phone, String service);
     Optional<RequestModel> findByPhoneAndService(int phone, String service);
 }

@@ -13,7 +13,7 @@ public class RequestModel {
     @Column(nullable = false)
     private  String name;
     @Column(nullable = false)
-    private int phone;
+    private String phone;
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
@@ -37,11 +37,11 @@ public class RequestModel {
         this.name = name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
