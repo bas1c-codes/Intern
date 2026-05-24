@@ -1,0 +1,22 @@
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+.vercel/
+
+# Environment variables
+.env*.local
+
+# Common ignores
+ui/node_modules
+ui/.next/
+ui/.DS_Store
+ui/.env
+backend/.env
+backend/.idea
+backend/.gradle
+backend/build
+backend/HELP.md
+backend/Test.http
