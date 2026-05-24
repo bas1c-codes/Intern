@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "/api";
 
 if (!API_URL) {
   console.warn('NEXT_PUBLIC_API_URL environment variable is not set');
