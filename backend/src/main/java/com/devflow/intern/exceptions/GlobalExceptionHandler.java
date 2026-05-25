@@ -16,19 +16,19 @@ public class GlobalExceptionHandler {
 
         Map<String, Object> response = new HashMap<>();
         response.put("error", ex.getMessage());
-        response.put("status", HttpStatus.BAD_REQUEST.value());
+        response.put("status", HttpStatus.OK.value());
         response.put("timestamp", LocalDateTime.now());
 
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleNRuntime(RuntimeException ex) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("error", ex.getMessage());
-        response.put("status", HttpStatus.NOT_FOUND.value());
+        response.put("status", HttpStatus.OK.value());
         response.put("timestamp", LocalDateTime.now());
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

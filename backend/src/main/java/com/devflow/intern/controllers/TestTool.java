@@ -2,6 +2,7 @@ package com.devflow.intern.controllers;
 
 import com.devflow.intern.model.RequestModel;
 import com.devflow.intern.repository.RequestRepository;
+import com.devflow.intern.service.AllocationAsyncService;
 import com.devflow.intern.service.AllocationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,69 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/test-tools")
+@CrossOrigin("*")
 public class TestTool {
 
-    private final RequestRepository requestRepository;
-    private final AllocationService allocationService;
+    private final AllocationAsyncService asyncService;
 
-    public TestTool(
-            RequestRepository requestRepository,
-            AllocationService allocationService
-    ) {
-        this.requestRepository = requestRepository;
-        this.allocationService = allocationService;
+    public TestTool(AllocationAsyncService asyncService) {
+        this.asyncService = asyncService;
     }
 
     @PostMapping("/generate")
     public ResponseEntity<?> generate() {
 
-        List<CompletableFuture<Void>> futures =
-                new ArrayList<>();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-
             int index = i;
-
-            CompletableFuture<Void> future =
-                    CompletableFuture.runAsync(() -> {
-
-                        RequestModel request =
-                                new RequestModel();
-
-                        request.setName(
-                                "Test User " + index
-                        );
-
-                        request.setPhone(
-                                "9999"+index
-                        );
-
-                        request.setCity("EKM");
-
-                        String[] services = {
-                                "Service 1",
-                                "Service 2",
-                                "Service 3"
-                        };
-
-                        request.setService(
-                                services[index % 3]
-                        );
-
-                        request.setDescription(
-                                "Concurrency test"
-                        );
-
-                        RequestModel saved =
-                                requestRepository.save(request);
-
-                        allocationService.allocateLead(saved);
-                    });
-
-            futures.add(future);
+            futures.add(asyncService.generateLead(index));
         }
 
         CompletableFuture.allOf(
@@ -83,10 +41,7 @@ public class TestTool {
         ).join();
 
         return ResponseEntity.ok(
-                Map.of(
-                        "message",
-                        "10 leads generated"
-                )
+                Map.of("message", "10 leads generated")
         );
     }
 }

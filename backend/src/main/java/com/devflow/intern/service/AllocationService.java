@@ -61,7 +61,7 @@ public class AllocationService {
             lastIndex = (lastIndex+1)% pool.size();
             Integer providerCode = pool.get(lastIndex);
 
-            ProviderModel m = providerRepository.findByProviderCode(providerCode);
+            ProviderModel m = providerRepository.findLockedByProviderCode(providerCode);
             if (m == null) {
                 attempts++;
                 continue;
@@ -84,7 +84,7 @@ public class AllocationService {
         for (Integer code : selected) {
 
             ProviderModel provider =
-                    providerRepository.findByProviderCode(code);
+                    providerRepository.findLockedByProviderCode(code);
 
             LeadModel lead = new LeadModel();
             lead.setLead(request);
